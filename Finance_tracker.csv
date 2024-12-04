@@ -1,3 +1,4 @@
 date,amount,category,description,payment_mode
 04-12-2024,5000,clothes,Purchased Branded clothes for anand,UPI
 02-12-2024,,Expense,purchase mobile,"['cash', 'UPI', 'credit card']"
+01-09-2024,1500.0,Expense,mobile purchase,UPI
