@@ -38,31 +38,29 @@ class CSV:
     @classmethod
     def get_transaction(cls, start_date, end_date):
         df = pd.read_csv(cls.CSV_FILE)
-        df['date'] = pd.to_datetime(df['date'],format = cls.FORMAT)
-        start_date = datetime.strptime(start_date,cls.FORMAT)
-        end_date = datetime.strptime(end_date,cls.FORMAT)
+        df['date'] = pd.to_datetime(df['date'], format=cls.FORMAT)
+        start_date = datetime.strptime(start_date, cls.FORMAT)
+        end_date = datetime.strptime(end_date, cls.FORMAT)
 
         mask = (df['date'] >= start_date) & (df['date'] <= end_date)
         filtered_df = df.loc[mask]
 
-
         if filtered_df.empty:
             print("No transactions found in the given date range.")
         else:
-            print(f'Transaction from {start_date.strftime(CSV.FORMAT)} to {end_date.strftime(CSV.FORMAT)}')
-
-            print(filtered_df.to_string(index = False, formatters ={'date': lambda x: x.strftime(CSV.FORMAT)}))
+            print(f'Transactions from {start_date.strftime(CSV.FORMAT)} to {end_date.strftime(CSV.FORMAT)}:')
+            print(filtered_df.to_string(index=False, formatters={'date': lambda x: x.strftime(CSV.FORMAT)}))
 
         total_income = filtered_df[filtered_df["category"] == "Income"]["amount"].sum()
-        total_expenses = filtered_df[filtered_df['category'] =="Expense"]["amount"].sum()
+        total_expenses = filtered_df[filtered_df["category"] == "Expense"]["amount"].sum()
 
-        print("\nsummary :")
-        print(f"Total income: ${total_income:.2f}")
-        print(f'Total expense: ${total_expenses:.2f}')
-        print(f'Net Saving: ${total_income -  total_expenses}')
+        print("\nSummary:")
+        print(f"Total Income: ${total_income:.2f}")
+        print(f"Total Expenses: ${total_expenses:.2f}")
+        print(f"Net Savings: ${total_income - total_expenses:.2f}")
 
         return filtered_df
-    
+
 
 def add():
     CSV.initialize()
@@ -76,5 +74,5 @@ def add():
     CSV.add_entry(date, amount, category, description, payment_mode)
 
 
-CSV.get_transaction("02-12-2024","06-12-2024")
 
+CSV.get_transaction("02-12-2024", "06-12-2024")

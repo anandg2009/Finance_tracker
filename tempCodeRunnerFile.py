@@ -1,0 +1,1 @@
+payment_mode = input("Enter the payment mode (e.g., cash, UPI, credit card): ")
